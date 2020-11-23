@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="TicketCambioButton">
+        <div class='control-button js_ticket_cambio'>
+            <i class='fa fa-shopping-bag' /> Tickets de cambio
+        </div>
+    </t>
+
+    <t t-extend="ReceiptScreenWidget">
+        <t t-jquery=".centered-content" t-operation="append">
+            <div class="pos-receipt-container-ticket">
+            </div>
+        </t>
+    </t>
+
+    <t t-name="TicketCambio">
+        <t t-set="cantidad" t-value="0"/>
+        <div class="pos-receipt" style="display: none">
+            <t t-set="cantidad" t-value="receipt.cantidad_tickets"/>
+        </div>
+
+        <t t-foreach="cantidad" t-as="recibo">
+            <div class="pos-receipt">
+                <div class="pos-receipt-contact">
+                    <center><strong>CERTIFICADO PARA CAMBIO</strong></center>
+                    <t t-if='receipt.company.contact_address'>
+                        <div><strong><t t-esc='receipt.company.contact_address' /></strong></div>
+                    </t>
+                    <t t-esc='widget.pos.config.name' />
+                    <t t-if='receipt.company.phone'>
+                        <div>Tel:<t t-esc='receipt.company.phone' /></div>
+                    </t>
+                    <t t-if='receipt.company.vat'>
+                        <div>NIT:<t t-esc='receipt.company.vat' /></div>
+                    </t>
+                    <t t-if='receipt.header_html'>
+                        <t t-raw='receipt.header_html' />
+                    </t>
+                    <t t-if='!receipt.header_html and receipt.header'>
+                        <div><t t-esc='receipt.header' /></div>
+                    </t>
+                    <br/>
+                    <table style="width:100%">
+                        <tr>
+                            <td style="border-top: 1px solid black;text-align:left">Fecha:</td>
+                            <td style="border-top: 1px solid black;text-align:left"><t t-esc='receipt.date.localestring' /></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left">Nombre:</td>
+                            <td style="text-align:left"><t t-esc="widget.pos.get_client().name"/></td>
+                        </tr>
+                        <tr>
+                            <td style="border-bottom: 1px solid black;text-align:left">NIT:</td>
+                            <td style="border-bottom: 1px solid black;text-align:left"><t t-esc="widget.pos.get_client().vat"/></td>
+                        </tr>
+                    </table>
+                    <br/>
+                    Pedido: <t t-esc='receipt.name' />
+                    <br/>
+                    <br/>
+                    <div style="text-align:justify">
+                        CAMBIO HASTA 30 DIAS DESPUES DE LA FECHA DE ESTE TICKET,
+                        FAVOR CONSERVAR LA ETIQUETA DEL PRODUCTO
+                    </div>
+                    <br/>
+                    <center>Gracias por su visita</center>
+                </div>
+
+
+            </div>
+        </t>
+
+    </t>
+</templates>
