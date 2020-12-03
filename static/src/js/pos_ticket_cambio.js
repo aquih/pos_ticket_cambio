@@ -26,7 +26,7 @@ var TicketCambioButton = screens.ActionButtonWidget.extend({
                 while (lista_cantidad.length < cantidad) {
                   lista_cantidad.push("")
                 }
-                this.pos.cantidad_tickets = lista_cantidad;
+                this.pos.set_cantidad_tickets(lista_cantidad);
                 self.renderElement();
             },
         });
