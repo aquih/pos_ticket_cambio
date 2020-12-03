@@ -21,7 +21,6 @@ var TicketCambioButton = screens.ActionButtonWidget.extend({
             'title': 'Cantidad de tickets',
             'value': 0,
             'confirm': function(cantidad) {
-                var arreglo = Array(cantidad).fill(0);
                 var lista_cantidad = [];
                 while (lista_cantidad.length < cantidad) {
                   lista_cantidad.push("")
