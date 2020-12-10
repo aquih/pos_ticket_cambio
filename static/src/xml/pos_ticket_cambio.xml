@@ -21,7 +21,7 @@
         </div>
 
         <t t-foreach="cantidad" t-as="recibo">
-            <div class="pos-receipt">
+            <div class="pos-receipt" style="font-size: 190%; zoom: 90%; position: relative; left: 1.2em">
                 <div class="pos-receipt-contact">
                     <center><strong>CERTIFICADO PARA CAMBIO</strong></center>
                     <t t-if='receipt.company.contact_address'>
