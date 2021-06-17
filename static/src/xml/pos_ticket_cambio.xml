@@ -58,13 +58,11 @@
                     <br/>
                     Pedido: <t t-esc='receipt.name' />
                     <br/>
-                    <br/>
-                    <div style="text-align:justify">
-                        CAMBIO HASTA 30 DIAS DESPUES DE LA FECHA DE ESTE TICKET,
-                        FAVOR CONSERVAR LA ETIQUETA DEL PRODUCTO
+                    <br/>                    
+                    <div t-if='!receipt.footer_html and receipt.footer'  class="pos-receipt-center-align" style="white-space:pre-line">
+                        <t t-esc='receipt.footer'/>
                     </div>
                     <br/>
-                    <center>Gracias por su visita</center>
                 </div>
 
 
