@@ -1,83 +1,65 @@
 odoo.define('pos_ticket_cambio.pos_ticket_cambio', function (require) {
-"use strict";
+    "use strict";
+    
+    const ProductScreen = require('point_of_sale.ProductScreen');
+    const PosComponent = require('point_of_sale.PosComponent');
+    const Registries = require('point_of_sale.Registries');
 
-var screens = require('point_of_sale.screens');
-var models = require('point_of_sale.models');
-var gui = require('point_of_sale.gui');
-var core = require('web.core');
-var QWeb = core.qweb;
+    const { useListener } = require('web.custom_hooks');
+    const { useState } = owl.hooks;
 
-
-var TicketCambioButton = screens.ActionButtonWidget.extend({
-    template: 'TicketCambioButton',
-    init: function(parent, options) {
-        this._super(parent, options);
-        this.pos.bind('change:selectedOrder',this.renderElement,this);
-    },
-    button_click: function(){
-        var self = this;
-        var order = this.pos.get_order();
-        this.gui.show_popup('number',{
-            'title': 'Cantidad de tickets',
-            'value': 0,
-            'confirm': function(cantidad) {
-                var lista_cantidad = [];
-                while (lista_cantidad.length < cantidad) {
-                  lista_cantidad.push("")
-                }
-                this.pos.set_cantidad_tickets(lista_cantidad);
-                self.renderElement();
-            },
-        });
-    },
-});
-
-screens.define_action_button({
-    'name': 'ticket_cambio',
-    'widget': TicketCambioButton,
-    'condition': function(){
-        return this.pos.config.ticket_cambio;
-    },
-});
-
-models.PosModel = models.PosModel.extend({
-    get_cantidad_tickets: function(){
-        return this.get('cantidad_tickets') || this.cantidad_tickets || 0;
-    },
-    set_cantidad_tickets: function(cantidad_tickets){
-        this.set('cantidad_tickets', cantidad_tickets);
+    class TicketCambioButton extends PosComponent {
+        constructor() {
+            super(...arguments);
+            useListener('click', this.onClick);
+            const order = this.env.pos.get_order();
+            this.state = useState({ cantidad_tickets: order.cantidad_tickets || 0 });
+        }
+        async onClick() {
+            const { confirmed, payload } = await this.showPopup('NumberPopup',{
+                'title': 'Cantidad de tickets de cambio',
+                'startingValue': 0,
+            });
+            if (confirmed) {
+                this.state.cantidad_tickets = parseInt(payload);
+                const order = this.env.pos.get_order();
+                order.cantidad_tickets = this.state.cantidad_tickets;
+            }
+        }
     }
-})
-screens.ReceiptScreenWidget.include({
-    render_receipt: function() {
-        this.$('.pos-receipt-container-ticket').html(QWeb.render('TicketCambio', this.get_receipt_render_env()));
-        this._super();
-    },
-})
+    TicketCambioButton.template = 'TicketCambioButton';
+    
+    ProductScreen.addControlButton({
+        component: TicketCambioButton,
+        condition: function() {
+            return this.env.pos.config.ticket_cambio;
+        },
+    });
+    
+    Registries.Component.add(TicketCambioButton);
+    
+    class TicketCambio extends PosComponent {
+        constructor() {
+            super(...arguments);
+            this._receiptEnv = this.props.order.getOrderReceiptEnv();
+            this._cantidad_tickets = this.props.order.cantidad_tickets;
+        }
+        willUpdateProps(nextProps) {
+            this._receiptEnv = nextProps.order.getOrderReceiptEnv();
+            this._cantidad_tickets = nextProps.order.cantidad_tickets;
+        }
+        get receipt() {
+            return this.receiptEnv.receipt;
+        }
+        get receiptEnv() {
+            return this._receiptEnv;
+        }
+        get tickets() {
+            return Array(this._cantidad_tickets);
+        }
+    }
+    TicketCambio.template = 'TicketCambio';
 
-var _super_order = models.Order.prototype;
-models.Order = models.Order.extend({
-    initialize: function() {
-        _super_order.initialize.apply(this,arguments);
-        this.cantidad_tickets =  this.pos.get_cantidad_tickets();
-        this.save_to_db();
-        return this
-    },
-
-    export_for_printing: function() {
-        var json = _super_order.export_for_printing.apply(this,arguments);
-        json.cantidad_tickets = this.pos.get_cantidad_tickets() || 0;
-        this.pos.set_cantidad_tickets([]);
-        return json;
-    },
-    set_cantidad_tickets: function(cantidad_tickets){
-        this.assert_editable();
-        this.set('cantidad_tickets',cantidad_tickets);
-    },
-    get_cantidad_tickets: function(){
-        return this.get('cantidad_tickets');
-    },
-
-})
+    Registries.Component.add(TicketCambio);
 
 });
