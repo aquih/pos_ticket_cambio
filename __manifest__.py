@@ -22,7 +22,7 @@
     'assets': {
         'point_of_sale.assets': [
             'pos_ticket_cambio/static/src/js/pos_ticket_cambio.js',
-            ('after', 'point_of_sale/static/src/css/pos.css', 'pos_ticket_cambio/static/src/css/pos_ticket_cambio.css'),
+            ('after', 'point_of_sale/static/src/css/pos.css', 'pos_ticket_cambio/static/src/css/pos.css'),
         ],
         'web.assets_qweb': [
             'pos_ticket_cambio/static/src/xml/**/*',
