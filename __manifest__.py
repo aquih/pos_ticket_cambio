@@ -3,8 +3,8 @@
 
 {
     'name': 'Ticket cambio POS',
-    'version': '15.0.1',
-    'category': 'Point of Sale',
+    'version': '1.0',
+    'category': 'Sales/Point of Sale',
     'sequence': 6,
     'summary': 'Ticket de cambio en POS',
     'description': """ Ticket de cambio en POS """,
@@ -21,8 +21,8 @@
     'auto_install': False,
     'assets': {
         'point_of_sale.assets': [
+            'pos_ticket_cambio/static/src/css/pos_ticket_cambio.css',
             'pos_ticket_cambio/static/src/js/pos_ticket_cambio.js',
-            ('after', 'point_of_sale/static/src/css/pos.css', 'pos_ticket_cambio/static/src/css/pos.css'),
         ],
         'web.assets_qweb': [
             'pos_ticket_cambio/static/src/xml/**/*',
