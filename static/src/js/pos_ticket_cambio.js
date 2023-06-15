@@ -5,19 +5,19 @@ odoo.define('pos_ticket_cambio.pos_ticket_cambio', function (require) {
     const PosComponent = require('point_of_sale.PosComponent');
     const Registries = require('point_of_sale.Registries');
 
-    const { useListener } = require('web.custom_hooks');
-    const { useState } = owl.hooks;
+    const { useListener } = require("@web/core/utils/hooks");
+    const { useState } = owl;
 
     class TicketCambioButton extends PosComponent {
-        constructor() {
-            super(...arguments);
+        setup() {
+            super.setup();
             useListener('click', this.onClick);
             const order = this.env.pos.get_order();
             this.state = useState({ cantidad_tickets: order.cantidad_tickets || 0 });
         }
         async onClick() {
             const { confirmed, payload } = await this.showPopup('NumberPopup',{
-                'title': 'Cantidad de tickets de cambio',
+                'title': 'Cantidad de tickets',
                 'startingValue': 0,
             });
             if (confirmed) {
@@ -35,12 +35,11 @@ odoo.define('pos_ticket_cambio.pos_ticket_cambio', function (require) {
             return this.env.pos.config.ticket_cambio;
         },
     });
-    
     Registries.Component.add(TicketCambioButton);
     
     class TicketCambio extends PosComponent {
-        constructor() {
-            super(...arguments);
+        setup() {
+            super.setup();
             this._receiptEnv = this.props.order.getOrderReceiptEnv();
             this._cantidad_tickets = this.props.order.cantidad_tickets;
         }
@@ -55,7 +54,11 @@ odoo.define('pos_ticket_cambio.pos_ticket_cambio', function (require) {
             return this._receiptEnv;
         }
         get tickets() {
-            return Array(this._cantidad_tickets);
+            let tickets = []
+            for (let i = 0; i < this._cantidad_tickets; i++) {
+                tickets.push(i);
+            }
+            return tickets;
         }
     }
     TicketCambio.template = 'TicketCambio';

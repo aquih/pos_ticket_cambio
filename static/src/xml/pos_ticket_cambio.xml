@@ -19,54 +19,52 @@
     </t>
 
     <t t-name="TicketCambio" owl="1">
-        <div>
-            <t t-foreach="tickets" t-as="ticket" t-key="ticket">
-                <div class="pos-receipt">
-                    <div class="pos-receipt-contact" style="font-size: 100%">
-                        <strong>CERTIFICADO PARA CAMBIO</strong>
-                        <div><t t-esc="receipt.company.name" /></div>
-                        <t t-if='receipt.company.vat'>
-                            <div>NIT: <t t-esc='receipt.company.vat' /></div>
+        <t t-foreach="tickets" t-as="ticket" t-key="ticket">
+            <div class="pos-receipt">
+                <div class="pos-receipt-contact" style="font-size: 100%">
+                    <strong>CERTIFICADO PARA CAMBIO</strong>
+                    <div><t t-esc="receipt.company.name" /></div>
+                    <t t-if='receipt.company.vat'>
+                        <div>NIT: <t t-esc='receipt.company.vat' /></div>
+                    </t>
+                    <t t-if='receipt.company.contact_address'>
+                        <div><strong><t t-esc='receipt.company.contact_address' /></strong></div>
+                    </t>
+                    <t t-if='receipt.company.phone'>
+                        <div>Tel: <t t-esc='receipt.company.phone' /></div>
+                    </t>
+                    <t t-if="receipt.header_html">
+                        <t t-out="receipt.header_html" />
+                    </t>
+                    <t t-if="!receipt.header_html and receipt.header">
+                        <div style="white-space:pre-line"><t t-esc="receipt.header" /></div>
+                    </t>
+                    <t t-if='!receipt.header_html and receipt.header'>
+                        <div><t t-esc='receipt.header' /></div>
+                    </t>
+                    <div>
+                        Fecha:
+                        <t t-if="receipt.date.localestring">
+                            <div><t t-esc="receipt.date.localestring" /></div>
                         </t>
-                        <t t-if='receipt.company.contact_address'>
-                            <div><strong><t t-esc='receipt.company.contact_address' /></strong></div>
+                        <t t-else="">
+                            <div><t t-esc="receipt.date.validation_date" /></div>
                         </t>
-                        <t t-if='receipt.company.phone'>
-                            <div>Tel: <t t-esc='receipt.company.phone' /></div>
-                        </t>
-                        <t t-if="receipt.header_html">
-                            <t t-raw="receipt.header_html" />
-                        </t>
-                        <t t-if="!receipt.header_html and receipt.header">
-                            <div style="white-space:pre-line"><t t-esc="receipt.header" /></div>
-                        </t>
-                        <t t-if='!receipt.header_html and receipt.header'>
-                            <div><t t-esc='receipt.header' /></div>
-                        </t>
-                        <div>
-                            Fecha:
-                            <t t-if="receipt.date.localestring">
-                                <div><t t-esc="receipt.date.localestring" /></div>
-                            </t>
-                            <t t-else="">
-                                <div><t t-esc="receipt.date.validation_date" /></div>
-                            </t>
-                        </div>
-                        <div>Nombre: <t t-esc="receipt.client.name"/></div>
-                        <div>NIT: <t t-esc="receipt.client.vat ? receipt.client.vat : 'CF'"/></div>
-                        <div>Pedido: <t t-esc='receipt.name' /></div>
-                        <div t-if="receipt.footer_html"  class="pos-receipt-center-align">
-                            <t t-raw="receipt.footer_html" />
-                        </div>
-                        <div t-if="!receipt.footer_html and receipt.footer"  class="pos-receipt-center-align" style="white-space:pre-line">
-                            <br/>
-                            <t t-esc="receipt.footer" />
-                            <br/>
-                            <br/>
-                        </div>
+                    </div>
+                    <div>Nombre: <t t-esc="receipt.partner.name"/></div>
+                    <div>NIT: <t t-esc="receipt.partner.vat ? receipt.partner.vat : 'CF'"/></div>
+                    <div>Pedido: <t t-esc='receipt.name' /></div>
+                    <div t-if="receipt.footer_html"  class="pos-receipt-center-align">
+                        <t t-out="receipt.footer_html" />
+                    </div>
+                    <div t-if="!receipt.footer_html and receipt.footer"  class="pos-receipt-center-align" style="white-space:pre-line">
+                        <br/>
+                        <t t-esc="receipt.footer" />
+                        <br/>
+                        <br/>
                     </div>
                 </div>
-            </t>
-        </div>
+            </div>
+        </t>
     </t>
 </templates>
