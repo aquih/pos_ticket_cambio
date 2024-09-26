@@ -23,6 +23,7 @@ export class TicketCambio extends Component {
         this._pos = this.pos;
         var company_id  = this.pos.company.partner_id[0];
         this._contact_address = this.pos.db.get_partner_by_id(company_id);
+        console.log(this)
 
     }
 

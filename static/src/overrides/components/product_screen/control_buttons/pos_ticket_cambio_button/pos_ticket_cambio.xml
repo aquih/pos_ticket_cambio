@@ -15,6 +15,7 @@
                     <t t-if='props.data.headerData.company'>
                         <div>Tel: <t t-esc='props.data.headerData.company.phone' /></div>
                     </t>
+                    <div><t t-esc='pos_info.config.name' /></div>
                     <t t-if='pos_info.config.receipt_header'>
                         <div><t t-out='pos_info.config.receipt_header' /></div>
                     </t>
