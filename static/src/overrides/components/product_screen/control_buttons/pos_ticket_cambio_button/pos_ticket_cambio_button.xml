@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="pos_ticket_cambio.TicketCambioButton">
+        <button class="control-button btn btn-light rounded-0 fw-bolder" t-on-click="() => this.onClick()">
+            <i class='fa fa-refresh'/>
+            <t t-if="state.cantidad_tickets &gt; 0">
+                <t t-esc="state.cantidad_tickets" />
+            </t>
+            <t t-else="">
+                Cambios
+            </t>
+        </button>
+    </t>
+
+    <t t-extend="OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('pos-receipt')]" position="inside">
+                <TicketCambio data="props.data" formatCurrency="props.formatCurrency" />
+                <!--<t t-call="pos_ticket_cambio.TicketCambio" data="pos.get_order().export_for_printing()" formatCurrency="env.utils.formatCurrency" />-->
+        </xpath>
+    </t>
+</templates>
