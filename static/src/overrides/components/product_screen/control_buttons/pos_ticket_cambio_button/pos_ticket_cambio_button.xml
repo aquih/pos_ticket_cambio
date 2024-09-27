@@ -15,8 +15,7 @@
 
     <t t-extend="OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
         <xpath expr="//div[hasclass('pos-receipt')]" position="inside">
-                <TicketCambio data="props.data" formatCurrency="props.formatCurrency" />
-                <!--<t t-call="pos_ticket_cambio.TicketCambio" data="pos.get_order().export_for_printing()" formatCurrency="env.utils.formatCurrency" />-->
+            <TicketCambio data="props.data" formatCurrency="props.formatCurrency" />
         </xpath>
     </t>
 </templates>
