@@ -17,10 +17,9 @@
     'installable': True,
     'auto_install': False,
     'assets': {
-        'point_of_sale.assets': [
+        'point_of_sale._assets_pos': [
+            'pos_ticket_cambio/static/src/**/*',
             'pos_ticket_cambio/static/src/css/**/*',
-            'pos_ticket_cambio/static/src/js/**/*',
-            'pos_ticket_cambio/static/src/xml/**/*',
         ],
     },
     'license': 'Other OSI approved licence',

@@ -10,5 +10,4 @@ class PosConfig(models.Model):
 class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
-    # pos.config fields
     pos_ticket_cambio = fields.Boolean(related='pos_config_id.ticket_cambio', readonly=False)

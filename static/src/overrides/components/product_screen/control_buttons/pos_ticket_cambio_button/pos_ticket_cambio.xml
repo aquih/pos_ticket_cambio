@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="pos_ticket_cambio.TicketCambio">
+        <t t-foreach="tickets" t-as="ticket" t-key="ticket">
+            <div class="pos-receipt">
+                --------------------------------------------------------------------
+                <div class="pos-receipt-contact" style="font-size: 100%">
+                    <strong>CERTIFICADO PARA CAMBIO</strong>
+                    <div><t t-esc="props.data.headerData.company.name"/></div>
+                    <t t-if='props.data.headerData.company.vat'>
+                        <div>NIT: <t t-esc='props.data.headerData.company.vat' /></div>
+                    </t>
+                    <div><t t-esc="contact_address"/></div>
+                    <t t-if='props.data.headerData.company'>
+                        <div>Tel: <t t-esc='props.data.headerData.company.phone' /></div>
+                    </t>
+                    <div><t t-esc='pos_info.config.name' /></div>
+                    <t t-if='pos_info.config.receipt_header'>
+                        <div><t t-out='pos_info.config.receipt_header' /></div>
+                    </t>
+                    <div>
+                        Fecha:
+                        <t t-if="props.data.date">
+                            <div><t t-esc="props.data.date" /></div>
+                        </t>
+                    </div>
+                    <div>Nombre: <t t-esc="props.data.partner.name"/></div>
+                    <div>NIT: <t t-esc="props.data.partner.vat ? props.data.partner.vat : 'CF'"/></div>
+                    <div>Pedido: <t t-esc='props.data.name' /></div>
+                    <t t-if='pos_info.config.receipt_footer'>
+                        <div><t t-out='pos_info.config.receipt_footer' /></div>
+                    </t>
+                </div>
+
+            </div>
+        </t>
+    </t>    
+
+</templates>
