@@ -10,7 +10,7 @@
     'description': """ Ticket de cambio en POS """,
     'author': 'Aquih',
     'website': 'http://aquih.com',
-    'depends': ['point_of_sale'],
+    'depends': ['point_of_sale', 'pos_fel'],
     'data': [
         'views/pos_config_view.xml',
     ],
