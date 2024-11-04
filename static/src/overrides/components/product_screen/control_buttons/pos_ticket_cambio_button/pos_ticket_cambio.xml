@@ -11,9 +11,9 @@
                     <t t-if='props.data.headerData.company.vat'>
                         <div>NIT: <t t-esc='props.data.headerData.company.vat' /></div>
                     </t>
-                    <div><t t-esc="contact_address"/></div>
-                    <t t-if='props.data.headerData.company'>
-                        <div>Tel: <t t-esc="props.data.diario_factura_tel or ''"/><br/></div>
+                    <t t-if='props.data.headerData'>
+                        <div><t t-esc="props.data.headerData.diario_factura_direccion or ''"/></div>
+                        <div>Tel: <t t-esc="props.data.headerData.diario_factura_tel or ''"/></div><br/>
                     </t>
                     <div><t t-esc='pos_info.config.name' /></div>
                     <t t-if='pos_info.config.receipt_header'>
