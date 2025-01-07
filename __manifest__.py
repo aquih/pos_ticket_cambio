@@ -3,7 +3,7 @@
 
 {
     'name': 'Ticket cambio POS',
-    'version': '2.0',
+    'version': '3.0',
     'category': 'Sales/Point of Sale',
     'sequence': 6,
     'summary': 'Ticket de cambio en POS',
