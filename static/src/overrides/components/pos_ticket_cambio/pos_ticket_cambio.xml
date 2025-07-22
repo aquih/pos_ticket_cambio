@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-extend="OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('pos-receipt')]" position="inside">
+            <TicketCambio data="props.data" formatCurrency="props.formatCurrency" />
+        </xpath>
+    </t>
+
+    <t t-name="pos_ticket_cambio.TicketCambio">
+        <t t-foreach="Array(cantidad_tickets_cambio()).keys()" t-as="ticket" t-key="ticket">
+            <div class="pos-receipt py-5">
+                --------------------------
+                <ReceiptHeader data="props.data.headerData" />
+                <div>
+                    <strong>CERTIFICADO PARA CAMBIO</strong>
+                </div>
+                <div>
+                    <t t-if="props.data.date">
+                        Fecha: <t t-esc="props.data.date"/>
+                    </t>
+                </div>
+                <div>Nombre: <t t-esc="props.data.partner.name"/></div>
+                <div>NIT: <t t-esc="props.data.partner.vat ? props.data.partner.vat : 'CF'"/></div>
+                <div>Pedido: <t t-esc='props.data.name'/></div>
+                <t t-if='props.data.footer'>
+                    <div><t t-out='props.data.footer'/></div>
+                </t>
+            </div>
+        </t>
+    </t>    
+
+</templates>

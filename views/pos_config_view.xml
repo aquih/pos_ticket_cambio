@@ -6,7 +6,7 @@
         <field name="model">res.config.settings</field>
         <field name="inherit_id" ref="point_of_sale.res_config_settings_view_form"/>
         <field name="arch" type="xml">
-            <block id="pos_interface_section" position="inside">
+            <block id="pos_gt_extras" position="inside">
                 <setting help="Generar ticket de cambio al facturar.">  
                     <field name="pos_ticket_cambio"/>
                 </setting>

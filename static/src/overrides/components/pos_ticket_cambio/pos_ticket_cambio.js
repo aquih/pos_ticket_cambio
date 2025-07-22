@@ -1,7 +1,6 @@
 /** @odoo-module **/
 
 import { Component, useState } from "@odoo/owl";
-import { registry } from "@web/core/registry";
 import { usePos } from "@point_of_sale/app/store/pos_hook";
 import { OrderReceipt } from "@point_of_sale/app/screens/receipt_screen/receipt/order_receipt";
 import { patch } from "@web/core/utils/patch";
@@ -13,29 +12,16 @@ export class TicketCambio extends Component {
         data: Object,
         formatCurrency: Function,
     };
-    static components = {
-        ReceiptHeader
-    }
-    
     setup() {
         super.setup();
         this.pos = usePos();
-        this._cantidad_tickets = this.pos.get_order().cantidad_tickets;
-        this._pos = this.pos;
     }
-
-    get pos_info(){
-        return this._pos;
-        
+    static components = {
+        ReceiptHeader
+    };
+    cantidad_tickets_cambio() {
+        return this.pos.get_order().cantidad_tickets_cambio;
     }
-
-    get tickets() {
-        let tickets = []
-        for (let i = 0; i < this._cantidad_tickets; i++) {
-            tickets.push(i);
-        }
-        return tickets;
-    }    
 }
 
 patch(OrderReceipt, {
