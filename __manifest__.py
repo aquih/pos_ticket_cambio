@@ -3,12 +3,12 @@
 
 {
     'name': 'Ticket de Cambio POS',
-    'version': '4.0',
+    'version': '4.1',
     'category': 'Sales/Point of Sale',
     'sequence': 6,
     'summary': 'Ticket de cambio en POS',
     'description': """ Ticket de cambio en POS """,
-    'author': 'Aquih',
+    'author': 'aquíH',
     'website': 'http://aquih.com',
     'depends': ['pos_gt', 'pos_fel'],
     'data': [

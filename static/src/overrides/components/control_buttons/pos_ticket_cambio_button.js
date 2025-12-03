@@ -5,7 +5,7 @@ import { NumberPopup } from "@point_of_sale/app/utils/input_popups/number_popup"
 import { patch } from "@web/core/utils/patch";
 
 patch(ControlButtons.prototype, {
-    async clickTagNumber() {
+    async clickTicketsCambio() {
         this.dialog.add(NumberPopup, {
             title: "Cantidad de Tickets",
             placeholder: "1",

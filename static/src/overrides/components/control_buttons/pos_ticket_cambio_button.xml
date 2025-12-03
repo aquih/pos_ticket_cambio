@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
 
-    <t t-name="pos_ticket_cambio.TicketCambioButton" t-inherit="point_of_sale.ControlButtons" t-inherit-mode="extension">
+    <t t-name="pos_ticket_cambio.clickTicketsCambio" t-inherit="point_of_sale.ControlButtons" t-inherit-mode="extension">
         <xpath expr="//t[@t-if='props.showRemainingButtons']/div/OrderlineNoteButton" position="after">
-            <button t-if="pos.config.ticket_cambio" t-att-class="buttonClass" t-on-click="() => this.clickTagNumber()">
+            <button t-if="pos.config.ticket_cambio" t-att-class="buttonClass" t-on-click="() => this.clickTicketsCambio()">
                 <t t-if="pos.get_order().cantidad_tickets_cambio &gt; 0">
                     <i class='fa fa-file'/> <t t-esc="pos.get_order().cantidad_tickets_cambio" /> Cambio<t t-if="pos.get_order().cantidad_tickets_cambio &gt; 1">s</t>
                 </t>
